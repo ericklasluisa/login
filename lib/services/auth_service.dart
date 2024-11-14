@@ -10,8 +10,11 @@ class AuthService {
     try {
       final response = await http.post(
         url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'email': email, 'password': password}),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'email': email,
+          'password': password,
+        },
       );
 
       if (response.statusCode == 200) {
@@ -33,13 +36,13 @@ class AuthService {
     try {
       final response = await http.post(
         url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
           'first_name': firstName,
           'last_name': lastName,
           'email': email,
           'password': password,
-        }),
+        },
       );
 
       return response.statusCode == 201; // Éxito si el código de estado es 201
