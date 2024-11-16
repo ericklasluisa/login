@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  static const String _baseUrl = 'http://tu_api_url';
+  static const String _baseUrl = 'http://localhost';
 
   // Método para iniciar sesión
-  static Future<String?> login(String email, String password) async {
-    final url = Uri.parse('$_baseUrl/login');
+  static Future<dynamic> login(String email, String password) async {
+    final url = Uri.parse('$_baseUrl/login/');
     try {
       final response = await http.post(
         url,
@@ -19,8 +19,9 @@ class AuthService {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return data['token'];
+        return data;
       } else {
+        print('Error: ${response.statusCode}');
         return null;
       }
     } catch (e) {
@@ -30,25 +31,29 @@ class AuthService {
   }
 
   // Método para registrar un nuevo usuario
-  static Future<bool> register(
-      String firstName, String lastName, String email, String password) async {
-    final url = Uri.parse('$_baseUrl/register');
+  static Future<String?> register(
+      String userName, String email, String password) async {
+    final url = Uri.parse('$_baseUrl/login/registro.php');
     try {
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: {
-          'first_name': firstName,
-          'last_name': lastName,
+          'user_name': userName,
           'email': email,
           'password': password,
         },
       );
 
-      return response.statusCode == 201; // Éxito si el código de estado es 201
+      if (response.statusCode == 200) {
+        return null; // Éxito
+      } else {
+        final data = jsonDecode(response.body);
+        return data['error'] ?? 'Error desconocido';
+      }
     } catch (e) {
       print('Error de conexión: $e');
-      return false;
+      return 'Error de conexión';
     }
   }
 }

@@ -7,8 +7,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
+  final _userNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String _message = '';
@@ -19,8 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<void> _register() async {
-    final firstName = _firstNameController.text;
-    final lastName = _lastNameController.text;
+    final userName = _userNameController.text;
     final email = _emailController.text;
     final password = _passwordController.text;
 
@@ -31,9 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
-    final success =
-        await AuthService.register(firstName, lastName, email, password);
-    if (success) {
+    final errorMessage = await AuthService.register(userName, email, password);
+    if (errorMessage == null) {
       setState(() {
         _message = 'Registro exitoso. Por favor, inicia sesión.';
       });
@@ -42,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
     } else {
       setState(() {
-        _message = 'Error: No se pudo registrar el usuario';
+        _message = 'Error: $errorMessage';
       });
     }
   }
@@ -59,24 +56,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              controller: _firstNameController,
-              decoration: InputDecoration(labelText: 'Nombre'),
-            ),
-            TextField(
-              controller: _lastNameController,
-              decoration: InputDecoration(labelText: 'Apellido'),
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Correo'),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Contraseña'),
-              obscureText: true,
+              controller: _userNameController,
+              decoration: InputDecoration(labelText: 'Ingrese su Nombre'),
             ),
             SizedBox(height: 20),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(labelText: 'Ingrese su Correo'),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: 'Ingrese una Contraseña'),
+              obscureText: true,
+            ),
+            SizedBox(height: 30),
             ElevatedButton(
               onPressed: _register,
               child: Text('Registrar'),

@@ -31,13 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    final token = await AuthService.login(email, password);
-    if (token != null) {
-      await _storage.write(key: 'jwt_token', value: token);
+    final data = await AuthService.login(email, password);
+    if (data != null) {
+      await _storage.write(key: 'jwt_token', value: data['token']);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => HomeScreen(username: email, token: token)),
+            builder: (context) => HomeScreen(username: data['user_name'], token: data['token'])),
       );
     } else {
       setState(() {

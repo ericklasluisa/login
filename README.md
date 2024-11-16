@@ -1,16 +1,56 @@
-# login
+# Inicio de sesión
 
-A new Flutter project.
+Esta es una aplicación de Flutter que permite a los usuarios registrarse e iniciar sesión utilizando un backend que maneja la autenticación con JWT.
 
-## Getting Started
+## Integrantes
 
-This project is a starting point for a Flutter application.
+- Erick Lasluisa
+- Francisco Quiroga
+- Ariel Rivadeneira
+- Augusto Salazar
 
-A few resources to get you started if this is your first Flutter project:
+## Instalación
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Clona este repositorio:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   ```sh
+   git clone <URL_DEL_REPOSITORIO>
+   cd login
+   ```
+
+2. Instala las dependencias:
+
+   ```sh
+   flutter pub get
+   ```
+
+3. Ejecuta la aplicación:
+
+   ```sh
+   flutter run -d chrome --web-browser-flag "--disable-web-security"
+   ```
+
+   > **Nota:**
+   > Es importante usar este comando para evitar problemas de CORS en el navegador.
+
+## Estructura del Código
+
+### `lib/main.dart`
+
+Este archivo es el punto de entrada de la aplicación. Configura el tema y la pantalla inicial de la aplicación.
+
+### `lib/screens/login_screen.dart`
+
+Esta pantalla permite a los usuarios iniciar sesión. Utiliza `AuthService` para manejar la autenticación.
+
+### `lib/screens/register_screen.dart`
+
+Esta pantalla permite a los usuarios registrarse. También utiliza `AuthService` para manejar el registro.
+
+### `lib/screens/home_screen.dart`
+
+Esta pantalla muestra un mensaje de bienvenida y el token JWT del usuario después de iniciar sesión.
+
+### `lib/services/auth_service.dart`
+
+Este archivo contiene la lógica para interactuar con el backend de autenticación. Incluye métodos para iniciar sesión y registrarse.
