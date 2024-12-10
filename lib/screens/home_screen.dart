@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login/screens/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final String username;
@@ -31,6 +32,14 @@ class HomeScreen extends StatelessWidget {
               token,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+              },
+              child: Text('Cerrar sesión'),
             ),
           ],
         ),
