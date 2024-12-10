@@ -14,7 +14,7 @@ Esta es una aplicación de Flutter que permite a los usuarios registrarse e inic
 1. Clona este repositorio:
 
    ```sh
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/ericklasluisa/login.git
    cd login
    ```
 
